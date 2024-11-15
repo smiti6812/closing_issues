@@ -1,7 +1,7 @@
 name: Call list create issue
 
 on:
-    pull_request:
+    #pull_request:
     push:
       branches:
         - main
