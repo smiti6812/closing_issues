@@ -32,7 +32,7 @@ jobs:
             assignees: smiti6812
         - run: echo "${{ steps.issue.outputs.issue }}"
         - name: Show PR number
-          run: echo  "${{ github.event.number }}"  
+          run: echo  "${{ github.event.pull_request.number }}"  
 
 
 
