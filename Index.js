@@ -21,13 +21,11 @@ async function run() {
       });
       */
       const issues = await octokit.rest.issues({
-        // owner: github.context.repo.owner,
-        // repo: github.context.repo.repo,
-        ...github.context.repo,
-        title,
-        body,
-        issue_number: 25,  
-        assignees: assignees ? assignees.split("\n") : undefined,
+        owner: github.context.repo.owner,
+        repo: https://api.github.com/repos/smiti6812/closing_issues,
+        
+        issue_number: 25, 
+       
       });
         
       core.setOutput("issue", response.data);
