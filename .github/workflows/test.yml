@@ -1,0 +1,32 @@
+name: Call list create issue
+
+on:
+  push:
+    branches:
+      -main
+
+  jobs:
+    prepare:
+      runs-on: windows-latest
+      steps:
+       - uses: actions/checkout@v3
+       - run: npm ci
+       - run: npm test
+    test:
+      runs-on: windows-latest
+      steps:
+       - uses: actions/checkout@v3
+       - uses: ./
+         id: issue
+         with:
+           token: ${{ secrets.GITHUB_TOKEN }}
+           title: Test Issue
+           body: Test issue body
+           assignees: |
+             alialaa
+       - run: echo ${{ steps.issue.outputs.issue }}          
+
+
+
+   
+      
