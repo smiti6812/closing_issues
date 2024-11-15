@@ -39,7 +39,7 @@ jobs:
             body: Test issue body
             assignees: smiti6812
             owner: "smiti6812"
-            repo: "${{github.context.repo.repo}}"
+            repo: "smiti6812/closing_issues"
         - run: |
             "Repo owner: ${{github.context.repo.repo}}"
             echo "${{ steps.issue.outputs.issue }}"
