@@ -18,7 +18,7 @@ inputs:
   pull_number:
     description: Pull Request number
   branch:
-    description:Branch name
+    description: Branch name
 outputs:
   issue: # id of output
     description: "The issue object as a json string"
