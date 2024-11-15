@@ -10,7 +10,7 @@ async function run() {
       const assignees = core.getInput("assignees");
   
       const octokit = github.getOctokit(token);
-  
+      /*
       const response = await octokit.rest.issues.create({
         // owner: github.context.repo.owner,
         // repo: github.context.repo.repo,
@@ -18,7 +18,17 @@ async function run() {
         title,
         body,
         assignees: assignees ? assignees.split("\n") : undefined,
-      });  
+      });
+      */
+      const issues = await octokit.rest.issues({
+        // owner: github.context.repo.owner,
+        // repo: github.context.repo.repo,
+        ...github.context.repo,
+        title,
+        body,
+        assignees: assignees ? assignees.split("\n") : undefined,
+      });
+        
       core.setOutput("issue", response.data);
     } catch (error) {
       core.setFailed(error.message);
