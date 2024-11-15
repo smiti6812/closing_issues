@@ -25,10 +25,10 @@ async function run() {
       const issues = await octokit.rest.issues.get({
         owner: owner,
         ...github.context.repo,     
-        issue_number: 25,       
+        issue_number: 25        
       });
         
-      core.setOutput("issue", response.data);
+      core.setOutput("issue", issues.data);
     } catch (error) {
       core.setFailed(error.message);
     }
