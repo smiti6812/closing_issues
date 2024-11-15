@@ -34,7 +34,7 @@ async function getIssuesFromPR() {
   const owner = core.getInput("owner");
   const repo = core.getInput("repo");
   const pull_number = core.getInput("pull_number");  
-  cconst octokit = new Octokit({ auth: token });
+  const octokit = new Octokit({ auth: token });
   try {
     const pullRequest = await octokit.pulls.get({
       owner,
