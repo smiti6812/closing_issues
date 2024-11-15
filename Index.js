@@ -26,6 +26,7 @@ async function run() {
         ...github.context.repo,
         title,
         body,
+        issue_number: 25,  
         assignees: assignees ? assignees.split("\n") : undefined,
       });
         
