@@ -36,7 +36,7 @@ async function getIssuesFromPR() {
   const pull_number = core.getInput("pull_number");  
   const octokit = github.getOctokit(token);
   try {
-    const pullRequest = await octokit.pulls.get({
+    const pullRequest = await octokit.rest.pulls.get({
       owner,
       ...github.context.repo,
       pull_number: pull_number
@@ -53,7 +53,7 @@ async function getIssuesFromPR() {
 
       // Get the issue details
       const issues = await Promise.all(issueNumbers.map(number => {
-        return octokit.issues.get({
+        return octokit.rest.issues.get({
           owner,
           ...github.context.repo,
           issue_number: number
