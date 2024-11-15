@@ -1,6 +1,7 @@
 
 const core = require('@actions/core');
 const github = require('@actions/github');
+const { Octokit } require('@actions/core');
 /*
 async function run() {
     try {
@@ -33,7 +34,7 @@ async function getIssuesFromPR() {
   const owner = core.getInput("owner");
   const repo = core.getInput("repo");
   const pull_number = core.getInput("pull_number");  
-  const octokit = github.getOctokit(token);
+  cconst octokit = new Octokit({ auth: token });
   try {
     const pullRequest = await octokit.pulls.get({
       owner,
