@@ -23,8 +23,8 @@ async function run() {
       });
       */
       const issues = await octokit.rest.issues.get({
-        owner,
-        repo,        
+        owner: owner,
+        repo: repo,        
         issue_number: 25,       
       });
         
