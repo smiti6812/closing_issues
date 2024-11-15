@@ -38,8 +38,8 @@ jobs:
             title: Test Issue
             body: Test issue body
             assignees: smiti6812
-            owner: smiti6812
-            repo: https://api.github.com/repos/smiti6812/closing_issues
+            owner: "smiti6812"
+            repo: "https://github.com/repos/smiti6812/closing_issues"
         - run: echo "${{ steps.issue.outputs.issue }}"
         - name: Show PR number
           run: echo  "${{ github.event.pull_request.number }}"    
