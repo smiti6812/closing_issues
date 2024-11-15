@@ -2,17 +2,21 @@ name: Call list create issue
 
 on:
     pull_request:
-      types:
-       - opened
-       - closed
-    push:      
+      types: 
+        - closed
+        - opened
+    push:
+      branches:
+        - main
+        - "releases/*"
 jobs:
     # unit tests
     units:
       runs-on: windows-latest
       steps:
         - uses: actions/checkout@v3
-        - run: npm ci  
+        - run: npm ci
+        #- run: npm test
   
     # test action works running from the graph
     test:
@@ -26,7 +30,10 @@ jobs:
             title: Test Issue
             body: Test issue body
             assignees: smiti6812
-        - run: echo ${{ steps.issue.outputs.issue }}         
+        - run: echo "${{ steps.issue.outputs.issue }}"
+        - name: Show PR number
+          run: echo  "${{ github.event.pull_request.number }}"  
+
 
 
 
