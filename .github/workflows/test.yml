@@ -6,8 +6,7 @@ on:
       branches:
         - main
         - "releases/*"
-  
-  jobs:
+jobs:
     # unit tests
     units:
       runs-on: windows-latest
