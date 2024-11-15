@@ -20,12 +20,10 @@ async function run() {
         assignees: assignees ? assignees.split("\n") : undefined,
       });
       */
-      const issues = await octokit.rest.issues({
-        owner: github.context.repo.owner,
-        repo: https://api.github.com/repos/smiti6812/closing_issues,
-        
-        issue_number: 25, 
-       
+      const issues = await octokit.rest.issues.get({
+        github.context.repo.owner,
+        https://api.github.com/repos/smiti6812/closing_issues,        
+        issue_number: 25,       
       });
         
       core.setOutput("issue", response.data);
