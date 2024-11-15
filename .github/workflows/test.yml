@@ -45,7 +45,9 @@ jobs:
             "Repo owner: ${{github.context.repo.repo}}"
             echo "${{ steps.issue.outputs.issue }}"
         - name: Show PR number
-          run: echo  "${{ github.event.pull_request.number }}"    
+          run: |
+             echo  "${{ github.event.pull_request.number }}"
+             echo "Branch: ${{ github.ref_name }}"
 
 
 
