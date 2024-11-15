@@ -49,7 +49,7 @@ jobs:
           run: |
              echo  "${{ github.event.pull_request.number }}"
              echo "Branch: ${{ github.ref_name }}"
-             echo "Repo:${{ENV:GITHUB_REPOSITORY#$ENV:GITHUB_REPOSITORY_OWNER/}}"
+             echo "Repo:${{ENV:GITHUB_REPOSITORY}}#${{ENV:GITHUB_REPOSITORY_OWNER}}/"
 
 
 
