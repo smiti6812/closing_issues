@@ -43,6 +43,13 @@ async function getIssuesFromPR() {
         ...github.context.repo,     
         issue_number: issue_number        
       });
+    
+      const issues = await octokit.rest.issues.update({
+        owner: owner,
+        ...github.context.repo,
+        state: 'closed',
+        issue_number: issue_number        
+      });
         
       core.setOutput("issue", issues.data);  
   try {
