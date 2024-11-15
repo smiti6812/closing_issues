@@ -1,7 +1,10 @@
 name: Call list create issue
 
 on:
-    #pull_request:
+    pull_request:
+      types: 
+        - closed
+        - opened
     push:
       branches:
         - main
@@ -27,7 +30,9 @@ jobs:
             title: Test Issue
             body: Test issue body
             assignees: smiti6812
-        - run: echo "${{ steps.issue.outputs.issue }}"        
+        - run: echo "${{ steps.issue.outputs.issue }}"
+        - name: Show PR number
+          run: echo  ${{ github.event.number }}   
 
 
 
