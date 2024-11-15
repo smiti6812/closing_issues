@@ -1,7 +1,7 @@
 
 const core = require('@actions/core');
 const github = require('@actions/github');
-
+/*
 async function run() {
     try {
       const token = core.getInput("token");
@@ -12,16 +12,7 @@ async function run() {
       const repo = core.getInput("repo");
   
       const octokit = github.getOctokit(token);
-      /*
-      const response = await octokit.rest.issues.create({
-        // owner: github.context.repo.owner,
-        // repo: github.context.repo.repo,
-        ...github.context.repo,
-        title,
-        body,
-        assignees: assignees ? assignees.split("\n") : undefined,
-      });
-      */
+    
       const issues = await octokit.rest.issues.get({
         owner: owner,
         ...github.context.repo,     
@@ -35,3 +26,46 @@ async function run() {
   }
   
   run();
+*/
+
+async function getIssuesFromPR() {
+  const token = core.getInput("token");
+  const owner = core.getInput("owner");
+  const repo = core.getInput("repo");
+  const pull_number = core.getInput("pull_number");  
+  const octokit =   const octokit = github.getOctokit(token);
+  try {
+    const pullRequest = await octokit.pulls.get({
+      owner,
+      ...github.context.repo,
+      pull_number
+    });
+
+    const body = pullRequest.data.body;
+
+    // This regex finds GitHub issue references like #123
+    const issueReferences = body.match(/#\d+/g);
+
+    if (issueReferences) {
+      // Remove the '#' prefix
+      const issueNumbers = issueReferences.map(ref => ref.replace('#', ''));
+
+      // Get the issue details
+      const issues = await Promise.all(issueNumbers.map(number => {
+        return octokit.issues.get({
+          owner,
+          ...github.context.repo,
+          issue_number: number
+        });
+      }));
+
+      return issues.map(issue => issue.data);
+    } else {
+      return [];
+    }
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+getIssuesFromPR().then(issues => console.log(issues));
