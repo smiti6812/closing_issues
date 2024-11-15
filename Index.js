@@ -43,7 +43,10 @@ async function getIssuesFromPR() {
     });
 
     const body = pullRequest.data.body;
-
+    if (!body) {
+      console.log('Pull request does not have a body.');
+      return [];
+    }
     // This regex finds GitHub issue references like #123
     const issueReferences = body.match(/#\d+/g);
 
