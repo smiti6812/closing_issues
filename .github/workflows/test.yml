@@ -13,8 +13,8 @@ on:
         - opened
 
     push:
-      branches:
-        - main
+      #branches:
+        #- main
       
 
 jobs:
