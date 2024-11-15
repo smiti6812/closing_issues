@@ -7,8 +7,8 @@ on:
         - opened
     push:
       branches:
-        - main
-        - "releases/*"
+        - myissue
+      
 jobs:
     # unit tests
     units:
@@ -32,10 +32,4 @@ jobs:
             assignees: smiti6812
         - run: echo "${{ steps.issue.outputs.issue }}"
         - name: Show PR number
-          run: echo  "${{ github.event.pull_request.number }}"  
-
-
-
-
-   
-      
+          run: echo  "${{ github.event.pull_request.number }}"    
