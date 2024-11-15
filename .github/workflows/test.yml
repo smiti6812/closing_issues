@@ -5,10 +5,12 @@ on:
       types: 
         - closed
         - opened
+
     push:
       branches:
-        - 1-myissue
+        - main
       
+
 jobs:
     # unit tests
     units:
@@ -33,3 +35,9 @@ jobs:
         - run: echo "${{ steps.issue.outputs.issue }}"
         - name: Show PR number
           run: echo  "${{ github.event.pull_request.number }}"    
+
+
+
+
+   
+      
