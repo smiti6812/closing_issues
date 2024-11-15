@@ -29,13 +29,54 @@ async function run() {
   }  
   run();
 */
+async function getLinkedIssue() {
+  const token = core.getInput("token");
+  const owner = core.getInput("owner");
+  const repo = core.getInput("repo");
+  const pull_number = core.getInput("pull_number");  
+  const octokit = github.getOctokit(token);
+  try {
+    const { data: events } = await octokit.issues.listEventsForTimeline({
+      owner: owner,
+      ...github.context.repo,
+      issue_number: pull_number,
+    });
 
+    for (const event of events) {
+      if (event.event === 'cross-referenced' && event.source.issue) {
+        return event.source.issue;
+      }
+    }
+
+    return null;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+getLinkedIssue().then(issue => console.log(issue));
 async function getIssuesFromPR() {
   const token = core.getInput("token");
   const owner = core.getInput("owner");
   const repo = core.getInput("repo");
   const pull_number = core.getInput("pull_number");  
   const octokit = github.getOctokit(token);
+  const branch = core.getInput("branch");
+  const issue_number = branch.substring(0,branch.indexOf("-")) ;
+  const issues = await octokit.rest.issues.get({
+        owner: owner,
+        ...github.context.repo,     
+        issue_number: issue_number        
+      });
+    
+      const response = await octokit.rest.issues.update({
+        owner: owner,
+        ...github.context.repo,
+        state: 'closed',
+        issue_number: issue_number        
+      });
+        
+      core.setOutput("issue", issues.data);  
   try {
     const pullRequest = await octokit.rest.pulls.get({
       owner,
@@ -73,4 +114,4 @@ async function getIssuesFromPR() {
   }
 }
 
-getIssuesFromPR().then(issues => console.log(issues));
+/*getIssuesFromPR().then(issues => console.log(issues));*/
