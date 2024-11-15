@@ -1,13 +1,22 @@
 name: 'Close issue of merged PR action'
 description: 'Closes issue of merged PR'
 inputs:
-  who-to-greet:  # id of input
-    description: 'Who to greet'
+  token:
+    description: "Github Token"
     required: true
-    default: 'World'
+  title:
+    description: "Issue Title"
+    required: true
+  body:
+    description: "Issue Body"
+  assignees:
+    description: "Issue Assignees"
 outputs:
-  time: # id of output
-    description: 'The time we greeted you'
+  issue: # id of output
+    description: "The issue object as a json string"
 runs:
-  using: 'node20'
-  main: 'index.js'
+  using: "node16"
+  main: "index.js"
+branding:
+  icon: "alert-circle"
+  color: "yellow"
