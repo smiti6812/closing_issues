@@ -11,9 +11,16 @@ inputs:
     description: "Issue Body"
   assignees:
     description: "Issue Assignees"
+  owner:
+    description: Repository owner
+  repo:
+    description: Repoitory url
+  pull_number:
+    description: Pull Request number
 outputs:
   issue: # id of output
     description: "The issue object as a json string"
+    
 runs:
   using: "node16"
   main: "index.js"

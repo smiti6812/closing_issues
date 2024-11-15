@@ -13,8 +13,8 @@ on:
         - opened
 
     push:
-      branches:
-        - main
+      #branches:
+        #- main
       
 
 jobs:
@@ -38,7 +38,12 @@ jobs:
             title: Test Issue
             body: Test issue body
             assignees: smiti6812
-        - run: echo "${{ steps.issue.outputs.issue }}"
+            owner: "smiti6812"
+            repo: "smiti6812/closing_issues"
+            pull_number: ${{ github.event.pull_request.number }}
+        - run: |
+            "Repo owner: ${{github.context.repo.repo}}"
+            echo "${{ steps.issue.outputs.issue }}"
         - name: Show PR number
           run: echo  "${{ github.event.pull_request.number }}"    
 
