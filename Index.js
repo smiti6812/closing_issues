@@ -8,6 +8,8 @@ async function run() {
       const title = core.getInput("title");
       const body = core.getInput("body");
       const assignees = core.getInput("assignees");
+      const owner = core.getinput("owner");
+      const repo = core.getInput("repo");
   
       const octokit = github.getOctokit(token);
       /*
@@ -21,8 +23,8 @@ async function run() {
       });
       */
       const issues = await octokit.rest.issues.get({
-        github.context.repo.owner,
-        https://api.github.com/repos/smiti6812/closing_issues,        
+        owner,
+        repo,        
         issue_number: 25,       
       });
         
