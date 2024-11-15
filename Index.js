@@ -12,7 +12,7 @@ async function getIssuesFromPR() {
   const issue_number = branch.substring(0,branch.indexOf("-")) ;
   const issues = await octokit.rest.issues.get({
         owner: owner,
-        ...github.context.repo,     
+        repo, smiti6812/closing_issues    
         issue_number: issue_number        
       });
     
