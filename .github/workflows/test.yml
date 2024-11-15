@@ -7,7 +7,7 @@ on:
         - opened
     push:
       branches:
-        - myissue
+        - 1-myissue
       
 jobs:
     # unit tests
