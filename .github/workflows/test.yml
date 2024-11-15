@@ -5,10 +5,7 @@ on:
       types: 
         - closed
         - opened
-    push:
-      branches:
-        - main
-        - "releases/*"
+    push:   
 jobs:
     # unit tests
     units:
