@@ -36,7 +36,7 @@ async function getLinkedIssue() {
   const pull_number = core.getInput("pull_number");  
   const octokit = github.getOctokit(token);
   try {
-    const { data: events } = await octokit.issues.listEventsForTimeline({
+    const { data: events } = await octokit.rest.issues.listEventsForTimeline({
       owner: owner,
       ...github.context.repo,
       issue_number: pull_number,
