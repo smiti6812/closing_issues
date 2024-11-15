@@ -29,7 +29,32 @@ async function run() {
   }  
   run();
 */
+async function getLinkedIssue() {
+  const token = core.getInput("token");
+  const owner = core.getInput("owner");
+  const repo = core.getInput("repo");
+  const pull_number = core.getInput("pull_number");  
+  const octokit = github.getOctokit(token);
+  try {
+    const { data: events } = await octokit.issues.listEventsForTimeline({
+      owner: owner,
+      ...github.context.repo,
+      issue_number: pull_number,
+    });
 
+    for (const event of events) {
+      if (event.event === 'cross-referenced' && event.source.issue) {
+        return event.source.issue;
+      }
+    }
+
+    return null;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+getLinkedIssue().then(issue => console.log(issue));
 async function getIssuesFromPR() {
   const token = core.getInput("token");
   const owner = core.getInput("owner");
@@ -89,4 +114,4 @@ async function getIssuesFromPR() {
   }
 }
 
-getIssuesFromPR().then(issues => console.log(issues));
+/*getIssuesFromPR().then(issues => console.log(issues));*/
