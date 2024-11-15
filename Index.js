@@ -24,7 +24,7 @@ async function run() {
       */
       const issues = await octokit.rest.issues.get({
         owner: owner,
-        repo: repo,        
+        ...github.context.repo,     
         issue_number: 25,       
       });
         
