@@ -2,8 +2,10 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
 const { Octokit } = require('@actions/core');
+
 /*
 async function run() {
+    echo "Issue1"
     try {
       const token = core.getInput("token");
       const title = core.getInput("title");
