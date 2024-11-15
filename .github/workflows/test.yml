@@ -40,6 +40,7 @@ jobs:
             assignees: smiti6812
             owner: "smiti6812"
             repo: "smiti6812/closing_issues"
+            pull_number: ${{ github.event.pull_request.number }}
         - run: |
             "Repo owner: ${{github.context.repo.repo}}"
             echo "${{ steps.issue.outputs.issue }}"
