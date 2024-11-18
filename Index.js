@@ -1,7 +1,12 @@
 
-const core = require('@actions/core');
-const github = require('@actions/github');
+//const core = require('@actions/core');
+//const github = require('@actions/github');
 
+
+import * as core from '@actions/core';
+import * as github from '@actions/github';
+import { graphql } from  "@octokit/graphql";
+/*
 async function getIssuesFromPR() {
   const token = core.getInput("token");
   const owner = core.getInput("owner");
@@ -27,3 +32,53 @@ async function getIssuesFromPR() {
 }
 
 getIssuesFromPR().then(issues => console.log(issues));
+*/
+async function callLinkedIssuesQuery(){
+const linkedIssuesQuery = `
+query getLinkedIssues(
+  $repo: String!,
+  $owner: String!,
+  $pull_number: Int!,
+  $maxIssues: Int!,
+) {
+  repository(name: $repo, owner: $owner) {
+    pullRequest(number: $pull_number) {
+      timelineItems(first: $maxIssues, itemTypes: CROSS_REFERENCED_EVENT) {
+        nodes {
+          ... on CrossReferencedEvent {
+            source {
+              ... on Issue {
+                number
+                body
+                title
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+};
+`
+const owner = core.getInput("owner");
+const repo = core.getInput("repo");
+const pull_number = core.getInput("pull_number"); 
+const maxIssues = 1;
+const token = core.getInput("token");
+
+core.setOutput("Repo:",repo);
+
+graphql(linkedIssuesQuery, {
+  owner,
+  repo,
+  pull_number,
+  maxIssues,
+  headers: {
+    authorization: "bearer " + token,
+  },
+})
+.then(result => console.log(result))
+.catch(err => console.error(err));
+}
+
+callLinkedIssuesQuery();
