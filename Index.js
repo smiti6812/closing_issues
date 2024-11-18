@@ -12,7 +12,7 @@ async function getIssuesFromPR() {
  
   const issues = await octokit.rest.issues.get({
         owner: owner,
-         ...github.context.repo,    
+         repo: closing_issues,    
         issue_number: issue_number        
       });
     
