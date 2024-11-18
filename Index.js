@@ -9,6 +9,10 @@ async function getIssuesFromPR() {
   const octokit = github.getOctokit(token);
   const branch = core.getInput("branch");
   const issue_number = branch.substring(0,branch.indexOf("-")) ;
+  const reponame = await octokit.repos.get({
+    owner: 'owner_username',
+      ...github.context.repo
+  });
   const issues = await octokit.rest.issues.get({
         owner: owner,
          ...github.context.repo,    
@@ -22,7 +26,8 @@ async function getIssuesFromPR() {
         issue_number: issue_number        
       });
         
-      core.setOutput("issue", issues.data);  
+      core.setOutput("issue", issues.data);
+      core .setOutput("Reponame:", reponame.name);
 }
 
 getIssuesFromPR().then(issues => console.log(issues));
