@@ -35,7 +35,7 @@ const pull_number = parseInt(core.getInput("pull_number"));
 const maxIssues = 1;
 const token = core.getInput("token");
 
-core.setOutput("Repo:",repo);
+core.setOutput("Repo:",repository);
 
 graphql(linkedIssuesQuery, {
   owner,
