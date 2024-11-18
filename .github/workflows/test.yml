@@ -51,5 +51,6 @@ jobs:
              echo  "${{ github.event.pull_request.number }}"
              echo "Branch: ${{ github.ref_name }}"
              echo "${{ github.event.repository.name }}"
+             echo "${{ github.event.repository.name }}"
    
       
