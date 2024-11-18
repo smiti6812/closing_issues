@@ -46,8 +46,10 @@ graphql(linkedIssuesQuery, {
     authorization: "bearer " + token,
   },
 })
-.then(result =>{ console.log(result.number);
-                console.log(result.title)
+.then(result =>{ 
+                result.data.repository.pullRequest.timelineItems.nodes.forEach(node => {
+                  console.log(node.source.number);
+                      });
                })
 .catch(err => console.error(err));
 }
