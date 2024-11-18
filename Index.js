@@ -1,60 +1,12 @@
 
-const core = require('@actions/core');
-const github = require('@actions/github');
-const { Octokit } = require('@actions/core');
+//const core = require('@actions/core');
+//const github = require('@actions/github');
 
+
+import * as core from '@actions/core';
+import * as github from '@actions/github';
+import { graphql } from  "@octokit/graphql";
 /*
-async function run() {
-    echo "Issue1"
-    try {
-      const token = core.getInput("token");
-      const title = core.getInput("title");
-      const body = core.getInput("body");
-      const assignees = core.getInput("assignees");
-      const owner = core.getInput("owner");
-      const repo = core.getInput("repo");
-  
-      const octokit = github.getOctokit(token);
-    
-      const issues = await octokit.rest.issues.get({
-        owner: owner,
-        ...github.context.repo,     
-        issue_number: 25        
-      });
-        
-      core.setOutput("issue", issues.data);
-    } catch (error) {
-      core.setFailed(error.message);
-    }
-  }  
-  run();
-*/
-async function getLinkedIssue() {
-  const token = core.getInput("token");
-  const owner = core.getInput("owner");
-  const repo = core.getInput("repo");
-  const pull_number = core.getInput("pull_number");  
-  const octokit = github.getOctokit(token);
-  try {
-    const { data: events } = await octokit.rest.issues.listEventsForTimeline({
-      owner: owner,
-      ...github.context.repo,
-      issue_number: pull_number,
-    });
-
-    for (const event of events) {
-      if (event.event === 'cross-referenced' && event.source.issue) {
-        return event.source.issue;
-      }
-    }
-
-    return null;
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-getLinkedIssue().then(issue => console.log(issue));
 async function getIssuesFromPR() {
   const token = core.getInput("token");
   const owner = core.getInput("owner");
@@ -65,7 +17,7 @@ async function getIssuesFromPR() {
   const issue_number = branch.substring(0,branch.indexOf("-")) ;
   const issues = await octokit.rest.issues.get({
         owner: owner,
-        ...github.context.repo,     
+        repo: 'smiti6812//closing_issues',    
         issue_number: issue_number        
       });
     
@@ -77,41 +29,56 @@ async function getIssuesFromPR() {
       });
         
       core.setOutput("issue", issues.data);  
-  try {
-    const pullRequest = await octokit.rest.pulls.get({
-      owner,
-      ...github.context.repo,
-      pull_number: pull_number
-    });
-
-    const body = pullRequest.data.body;
-    if (!body) {
-      console.log('Pull request does not have a body.');
-      return [];
-    }
-    // This regex finds GitHub issue references like #123
-    const issueReferences = body.match(/#\d+/g);
-
-    if (issueReferences) {
-      // Remove the '#' prefix
-      const issueNumbers = issueReferences.map(ref => ref.replace('#', ''));
-
-      // Get the issue details
-      const issues = await Promise.all(issueNumbers.map(number => {
-        return octokit.rest.issues.get({
-          owner,
-          ...github.context.repo,
-          issue_number: number
-        });
-      }));
-
-      return issues.map(issue => issue.data);
-    } else {
-      return [];
-    }
-  } catch (error) {
-    console.error(error);
-  }
 }
 
-/*getIssuesFromPR().then(issues => console.log(issues));*/
+getIssuesFromPR().then(issues => console.log(issues));
+*/
+async function callLinkedIssuesQuery(){
+const linkedIssuesQuery = `
+query getLinkedIssues(
+  $repo: String!,
+  $owner: String!,
+  $pull_number: Int!,
+  $maxIssues: Int!,
+) {
+  repository(name: $repo, owner: $owner) {
+    pullRequest(number: $pull_number) {
+      timelineItems(first: $maxIssues, itemTypes: CROSS_REFERENCED_EVENT) {
+        nodes {
+          ... on CrossReferencedEvent {
+            source {
+              ... on Issue {
+                number
+                body
+                title
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+};
+`
+const owner = core.getInput("owner");
+const repo = core.getInput("repo");
+const pull_number = core.getInput("pull_number"); 
+const maxIssues = 1;
+const token = core.getInput("token");
+
+core.setOutput("Repo:",repo);
+
+graphql(linkedIssuesQuery, {
+  owner,
+  repo,
+  pull_number,
+  maxIssues,
+  headers: {
+    authorization: "bearer " + token,
+  },
+})
+.then(result => console.log(result))
+.catch(err => console.error(err));
+}
+
+callLinkedIssuesQuery();
