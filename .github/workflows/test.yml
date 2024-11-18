@@ -8,9 +8,9 @@ name: Call list create issue
 
 on:
     pull_request:
-      types: 
-        - closed
+      types:        
         - opened
+        - closed
 
     push:
       #branches:
