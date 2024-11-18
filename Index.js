@@ -74,7 +74,7 @@ graphql(linkedIssuesQuery, {
   pull_number,
   maxIssues,
   headers: {
-    authorization: "bearer " + token,
+    authorization:  `Bearer ${token}`,
   },
 })
 .then(result => console.log(result))
