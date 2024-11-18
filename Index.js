@@ -1,12 +1,7 @@
 
-//const core = require('@actions/core');
-//const github = require('@actions/github');
+const core = require('@actions/core');
+const github = require('@actions/github');
 
-
-import * as core from '@actions/core';
-import * as github from '@actions/github';
-import { graphql } from  "@octokit/graphql";
-/*
 async function getIssuesFromPR() {
   const token = core.getInput("token");
   const owner = core.getInput("owner");
@@ -82,3 +77,4 @@ graphql(linkedIssuesQuery, {
 }
 
 callLinkedIssuesQuery();
+*/
