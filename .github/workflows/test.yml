@@ -39,7 +39,7 @@ jobs:
             body: Test issue body
             assignees: smiti6812
             owner: "smiti6812"
-            repo: "smiti6812/closing_issues"
+            repo: "smiti6812//closing_issues"
             pull_number: ${{ github.event.pull_request.number }}
             branch: ${{ github.ref_name }}
         - run: |
