@@ -16,6 +16,7 @@ inputs:
   repo:
     description: Repoitory url
   pull_number:
+    type: number
     description: Pull Request number
   branch:
     description: Branch name
