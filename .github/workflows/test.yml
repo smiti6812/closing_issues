@@ -34,7 +34,7 @@ jobs:
         - uses: ./
           id: issue
           with:
-            token: ${{ secrets.GITTOKEN }}
+            token: ${{ secrets.GITHUB_TOKEN }}
             title: Test Issue
             body: Test issue body
             assignees: smiti6812
