@@ -27,7 +27,7 @@ async function getIssuesFromPR() {
       });
         
       core.setOutput("issue", issues.data);
-      core .setOutput("Reponame:", reponame.name);
+      core .setOutput("Reponame", reponame.name);
 }
 
 getIssuesFromPR().then(issues => console.log(issues));
