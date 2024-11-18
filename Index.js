@@ -27,8 +27,8 @@ query getLinkedIssues(
       }
     }
   }
-};
-`
+}
+`;
 const owner = core.getInput("owner");
 const repo = core.getInput("repo");
 const pull_number = core.getInput("pull_number"); 
