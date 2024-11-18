@@ -39,16 +39,18 @@ jobs:
             body: Test issue body
             assignees: smiti6812
             owner: "smiti6812"
-            repo: "smiti6812/closing_issues"
+            repo: "closing_issues"
             pull_number: ${{ github.event.pull_request.number }}
             branch: ${{ github.ref_name }}
         - run: |
-            "Repo owner: ${{github.context.repo.repo}}"
-            echo "${{ steps.issue.outputs.issue }}"
+            echo "Repo owner: ${{github.context.repo.repo}}"
+            #echo "${{ steps.issue.outputs.issue }}"
+            echo "${{ steps.issue.outputs.Reponame }}"
         - name: Show PR number
           run: |
              echo  "${{ github.event.pull_request.number }}"
              echo "Branch: ${{ github.ref_name }}"
-             echo "${GITHUB_REPOSITORY#$GITHUB_REPOSITORY_OWNER/}"
+             echo "${{ github.event.repository.name }}"
+             echo "${{ github.repository_owner }}"
    
       
