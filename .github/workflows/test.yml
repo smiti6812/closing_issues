@@ -50,6 +50,6 @@ jobs:
           run: |
              echo  "${{ github.event.pull_request.number }}"
              echo "Branch: ${{ github.ref_name }}"
-             echo "${{ENV:GITHUB_REPOSITORY}}"
+             echo "${{ github.event.repository.name }}"
    
       
