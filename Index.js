@@ -47,9 +47,11 @@ graphql(linkedIssuesQuery, {
   },
 })
 .then(result =>{ 
+                console.log(JSON.stringify(result, null, 2));
                 result.data.repository.pullRequest.timelineItems.nodes.forEach(node => {
                   console.log(node.source.number);
                       });
+  
                })
 .catch(err => console.error(err));
 }
