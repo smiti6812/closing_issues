@@ -40,7 +40,7 @@ query getLinkedIssues(
   $repo: String!,
   $owner: String!,
   $pull_number: Int!,
-  $maxIssues: Int!,
+  $maxIssues: Int!
 ) {
   repository(name: $repo, owner: $owner) {
     pullRequest(number: $pull_number) {
