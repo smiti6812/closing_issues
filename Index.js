@@ -9,7 +9,7 @@ async function getIssuesFromPR() {
   const octokit = github.getOctokit(token);
   const branch = core.getInput("branch");
   const issue_number = branch.substring(0,branch.indexOf("-")) ;
-  await octokit.repos.listForAuthenticatedUser().then(({ data }) => {
+  await octokit.rest.repos.listForAuthenticatedUser().then(({ data }) => {
     data.forEach((repo) => {
       console.log(repo.name);
     });
