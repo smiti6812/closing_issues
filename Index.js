@@ -31,7 +31,7 @@ query getLinkedIssues(
 `;
 const owner = core.getInput("owner");
 const repo = core.getInput("repo");
-const pull_number = core.getInput("pull_number"); 
+const pull_number = parseInt(core.getInput("pull_number")); 
 const maxIssues = 1;
 const token = core.getInput("token");
 
