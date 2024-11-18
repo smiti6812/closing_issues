@@ -46,7 +46,9 @@ graphql(linkedIssuesQuery, {
     authorization: "bearer " + token,
   },
 })
-.then(result => console.log(result))
+.then(result =>{ console.log(result.number);
+                console.log(result.title)
+               })
 .catch(err => console.error(err));
 }
 
