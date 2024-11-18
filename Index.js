@@ -1,6 +1,7 @@
 import * as core from '@actions/core';
 import * as github from '@actions/github';
 import {graphql} from "@octokit/graphql"
+
 async function callLinkedIssuesQuery(){
 const linkedIssuesQuery = `
 query getLinkedIssues(
