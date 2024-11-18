@@ -28,6 +28,7 @@ async function run() {
   run();
 */
 
+
 async function getIssuesFromPR() {
   const token = core.getInput("token");
   const owner = core.getInput("owner");
