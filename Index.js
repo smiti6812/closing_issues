@@ -1,7 +1,6 @@
 
 const core = require('@actions/core');
 const github = require('@actions/github');
-
 async function getIssuesFromPR() {
   const token = core.getInput("token");
   const owner = core.getInput("owner");
