@@ -5,12 +5,12 @@ import {graphql} from "@octokit/graphql"
 async function callLinkedIssuesQuery(){
 const linkedIssuesQuery = `
 query getLinkedIssues(
-  $repo: String!,
+  $repository: String!,
   $owner: String!,
   $pull_number: Int!,
   $maxIssues: Int!
 ) {
-  repository(name: $repo, owner: $owner) {
+  repository(name: $repository, owner: $owner) {
     pullRequest(number: $pull_number) {
       timelineItems(first: $maxIssues, itemTypes: CROSS_REFERENCED_EVENT) {
         nodes {
@@ -30,16 +30,16 @@ query getLinkedIssues(
 }
 `;
 const owner = core.getInput("owner");
-const repo = core.getInput("repo");
+const repository = core.getInput("repo");
 const pull_number = parseInt(core.getInput("pull_number")); 
 const maxIssues = 1;
 const token = core.getInput("token");
 
-core.setOutput("Repo:",repo);
+core.setOutput("Repo:",repository);
 
 graphql(linkedIssuesQuery, {
   owner,
-  repo,
+  repository,
   pull_number,
   maxIssues,
   headers: {
