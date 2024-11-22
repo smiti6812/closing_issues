@@ -35,6 +35,7 @@ jobs:
              echo "Branch: ${{ github.ref_name }}"
         - uses: actions/checkout@v3
         - uses: ./
+          if: ${{ github.ref_name == 'callview' }}
           id: issue
           with:
             token: ${{ secrets.GITHUB_TOKEN }}
