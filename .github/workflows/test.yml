@@ -20,7 +20,7 @@ jobs:
     # unit tests
     units:
       runs-on: windows-latest
-      if: ${{ endsWith(github.ref, 'callview') }}
+      if: github.ref == 'callview'
       steps:
         - uses: actions/checkout@v3
         - run: npm ci
