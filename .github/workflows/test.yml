@@ -20,19 +20,20 @@ jobs:
     # unit tests
     units:
       runs-on: windows-latest
+      if: ${{ endsWith(github.ref, 'callview') }}
       steps:
         - uses: actions/checkout@v3
         - run: npm ci
         #- run: npm test
   
     # test action works running from the graph
-    test:
-      if: ${{ endsWith(github.ref, 'callview') }}
+    test:      
       runs-on: windows-latest
+      if: ${{ endsWith(github.ref, 'callview') }}
       steps:
         - name: Display target branch
           run: | 
-             echo "Branch: ${{ github.ref_name }}"
+             echo "Branch: ${{ github.ref }}"
         - uses: actions/checkout@v3
         - uses: ./
           if: ${{ github.ref_name == 'callview' }}
