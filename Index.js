@@ -34,10 +34,13 @@ async function getMilestone(){
      const octokit = github.getOctokit(token);
     try
     {
-        const milestone = octokit.rest.issues.milestones.get({
-          owner,
-          ...github.context.repo,  
+        const milestone = octokit.request('GET /repos/{owner}/{repo}/milestones/{milestone_number}', {
+          owner: owner,
+          repo: repo,
           milestone_number: 2,
+          headers: {
+            'X-GitHub-Api-Version': '2022-11-28'
+          }
         });
         console.log(milestone.data);
     }
