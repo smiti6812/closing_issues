@@ -21,11 +21,12 @@ async function run() {
       });
         
       core.setOutput("issue", issues.data);
+      core.setOutput("openissues", JSON.stringify(issues.open_issues))
     } catch (error) {
       core.setFailed(error.message);
     }
   }  
-  //run();
+  run();
 
 async function getMilestone(){
      const token = core.getInput("token");      
@@ -47,7 +48,7 @@ async function getMilestone(){
         core.setFailed(error.message);
     }
 }
-getMilestone();
+//getMilestone();
 /*
 async function getIssuesFromPR() {
   const token = core.getInput("token");
