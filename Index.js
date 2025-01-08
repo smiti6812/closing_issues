@@ -38,10 +38,7 @@ async function getMilestone(){
           owner: owner,
           ...github.context.repo, 
           milestone_number: 2
-        });
-        milestone.data.forEach(item => {
-            console.log(item.open_issues);
-        })
+        });       
         let jsonString = JSON.stringify(milestone.data);
         let jsonObj = JSON.parse(jsonString);
         let openIssues = jsonObj.milestone.open_issues;
