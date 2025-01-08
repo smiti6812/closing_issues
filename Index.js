@@ -27,7 +27,7 @@ async function run() {
   }  
   run();
 */
-
+/*
 async function getIssuesFromPR() {
   const token = core.getInput("token");
   const owner = core.getInput("owner");
@@ -71,4 +71,22 @@ async function getIssuesFromPR() {
   }
 }
 
+getIssuesFromPR().then(issues => console.log(issues));
+*/
+
+async function getIssuesFromPR() {
+  const token = core.getInput("token");
+  const owner = core.getInput("owner");
+  const repo = core.getInput("repo");
+  const octokit = github.getOctokit(token);
+  const branch = core.getInput("branch");
+  const issue_number = branch.substring(0,branch.indexOf("-")) ;
+  const response = await octokit.rest.issues.update({
+    owner: owner,
+    repo: repo,
+    state: 'closed',
+    issue_number: issue_number
+  });  
+    core.setOutput("issue", 'Issue number #' + issue_number +' has been closed now!');   
+}
 getIssuesFromPR().then(issues => console.log(issues));
