@@ -25,7 +25,7 @@ async function run() {
       core.setFailed(error.message);
     }
   }  
-  run();
+  //run();
 
 async function getMilestone(){
      const token = core.getInput("token");      
