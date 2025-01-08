@@ -27,7 +27,7 @@ async function run() {
   }  
   run();
 
-async function getMilestones(){
+async function getMilestone(){
      const token = core.getInput("token");      
      const owner = core.getInput("owner");
      const repo = core.getInput("repo");
