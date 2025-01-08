@@ -39,7 +39,7 @@ async function getMilestone(){
           ...github.context.repo, 
           milestone_number: 2
         });
-        var mileStoneObj = JSON.parse(milestone.data);
+        var mileStoneObj = JSON.parse(milestone.data.body);
         core.setOutput("milestone", milestone.data);
         core.setOutput("openissues", mileStoneObj.open_issues)
     }
