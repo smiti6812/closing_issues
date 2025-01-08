@@ -37,7 +37,7 @@ async function getMilestone(){
         const milestone = octokit.rest.issues.getMilestone({
           owner: owner,
           ...github.context.repo, 
-          milestone_number: 2
+          milestone_number: 1
         });        
         core.setOutput("milestone", milestone.data);
     }
