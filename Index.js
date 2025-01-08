@@ -43,7 +43,7 @@ async function getMilestone(){
             console.log(item.open_issues);
         })
         core.setOutput("milestone", JSON.stringify(milestone.data));
-        core.setOutput("openissues", milestone.data.milestone.open_issues)
+        //core.setOutput("openissues", milestone.data.milestone.open_issues)
     }
     catch(error)
     {
