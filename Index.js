@@ -27,6 +27,26 @@ async function run() {
   }  
   run();
 
+async function getMilestones(){
+     const token = core.getInput("token");      
+     const owner = core.getInput("owner");
+     const repo = core.getInput("repo");
+     const octokit = github.getOctokit(token);
+    try
+    {
+        const milestone = octokit.rest.issues.getMilestone({
+          owner,
+          ...github.context.repo,  
+          milestone_number: 2,
+        });
+        console.log(milestone.data);
+    }
+    catch(error)
+    {
+        core.setFailed(error.message);
+    }
+}
+getMilestone();
 /*
 async function getIssuesFromPR() {
   const token = core.getInput("token");
