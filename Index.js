@@ -40,7 +40,7 @@ async function getMilestone(){
           milestone_number: 2
         });        
         core.setOutput("milestone", JSON.stringify(milestone.data));
-        core.setOutput("openissues", milestone.milestone)
+        core.setOutput("openissues", milestone.milestone.data)
     }
     catch(error)
     {
