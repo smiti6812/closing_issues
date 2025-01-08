@@ -38,12 +38,9 @@ async function getMilestone(){
           owner: owner,
           ...github.context.repo, 
           milestone_number: 2
-        });       
-        let jsonString = JSON.stringify(milestone.data);
-        let jsonObj = JSON.parse(jsonString);
-        let openIssues = jsonObj.milestone.open_issues;
+        });        
         core.setOutput("milestone", JSON.stringify(milestone.data));
-        core.setOutput("openissues", openIssues)
+        core.setOutput("openissues", milestone.open_issues)
     }
     catch(error)
     {
