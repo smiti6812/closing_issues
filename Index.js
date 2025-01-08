@@ -2,7 +2,7 @@
 const core = require('@actions/core');
 const github = require('@actions/github');
 const { Octokit } = require('@actions/core');
-/*
+
 async function run() {
     try {
       const token = core.getInput("token");
@@ -17,7 +17,7 @@ async function run() {
       const issues = await octokit.rest.issues.get({
         owner: owner,
         ...github.context.repo,     
-        issue_number: 25        
+        issue_number: 66        
       });
         
       core.setOutput("issue", issues.data);
@@ -26,7 +26,7 @@ async function run() {
     }
   }  
   run();
-*/
+
 /*
 async function getIssuesFromPR() {
   const token = core.getInput("token");
@@ -72,7 +72,7 @@ async function getIssuesFromPR() {
 }
 
 getIssuesFromPR().then(issues => console.log(issues));
-*/
+
 
 async function getIssuesFromPR() {
   const token = core.getInput("token");
@@ -90,3 +90,4 @@ async function getIssuesFromPR() {
     core.setOutput("issue", 'Issue number #' + issue_number +' has been closed now!');   
 }
 getIssuesFromPR().then(issues => console.log(issues));
+*/
