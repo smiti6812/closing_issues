@@ -1,9 +1,6 @@
 name: Call list create issue
 
 #Myissue1
-
-
-
 #Myissue2
 
 on:
@@ -40,6 +37,7 @@ jobs:
             assignees: smiti6812
             owner: "smiti6812"
             repo: "smiti6812/closing_issues"
+            branch: "${{ github.head_ref }}"
             pull_number: ${{ github.event.pull_request.number }}
         - run: |
             "Repo owner: ${{github.context.repo.repo}}"
