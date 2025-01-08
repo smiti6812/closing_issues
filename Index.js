@@ -41,7 +41,7 @@ async function getMilestone(){
         });
        
         core.setOutput("milestone", JSON.stringify(milestone.data));
-        /*core.setOutput("openissues", milestone.data[open_issues])*/
+        core.setOutput("openissues", milestone.data.milestone.open_issues)
     }
     catch(error)
     {
