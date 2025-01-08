@@ -39,9 +39,8 @@ jobs:
             repo: "smiti6812/closing_issues"
             branch: "${{ github.head_ref }}"
             pull_number: ${{ github.event.pull_request.number }}
-        - run: |
-            "Repo owner: ${{github.context.repo}}"
-            echo "${{ steps.issue.outputs.milestone }}"
+        - run: |            
+            #echo "${{ steps.issue.outputs.milestone }}"
             echo "Open Issues: ${{ steps.issue.outputs.open_issues }}"
             #echo "${{ steps.issue.outputs.issue }}"
         - name: Show PR number
