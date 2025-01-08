@@ -83,7 +83,7 @@ async function getIssuesFromPR() {
   const issue_number = branch.substring(0,branch.indexOf("-")) ;
   const response = await octokit.rest.issues.update({
     owner: owner,
-    repo: repo,
+    ...github.context.repo,
     state: 'closed',
     issue_number: issue_number
   });  
