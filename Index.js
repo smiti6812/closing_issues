@@ -39,7 +39,9 @@ async function getMilestone(){
           ...github.context.repo, 
           milestone_number: 2
         });
-       
+        milestone.data.items.forEach(item => {
+            console.log(item.open_issues);
+        })
         core.setOutput("milestone", JSON.stringify(milestone.data));
         core.setOutput("openissues", milestone.data.milestone.open_issues)
     }
