@@ -38,9 +38,10 @@ async function getMilestone(){
           owner: owner,
           ...github.context.repo, 
           milestone_number: 2
-        });        
+        });
+        var mileStoneObj = JSON.parse(milestone.data);
         core.setOutput("milestone", milestone.data);
-        core.setOutput("openissues", milestone.data.open_issues)
+        core.setOutput("openissues", mileStoneObj.open_issues)
     }
     catch(error)
     {
