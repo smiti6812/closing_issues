@@ -38,8 +38,8 @@ async function getMilestone(){
           owner: owner,
           ...github.context.repo, 
           milestone_number: 2
-        });
-        console.log(milestone.data);
+        });        
+        core.setOutput("milestone", milestone.data);
     }
     catch(error)
     {
