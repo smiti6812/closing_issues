@@ -42,6 +42,7 @@ jobs:
         - run: |
             "Repo owner: ${{github.context.repo}}"
             echo "${{ steps.issue.outputs.milestone }}"
+            echo "Open Issues: ${{ steps.issue.outputs.open_issues }}"
             #echo "${{ steps.issue.outputs.issue }}"
         - name: Show PR number
           run: echo  "${{ github.event.pull_request.number }}"    
