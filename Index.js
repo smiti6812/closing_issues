@@ -29,16 +29,18 @@ async function run() {
   //run();
 
 async function getMilestoneAndClose(){
-     const token = core.getInput("token");      
-     const owner = core.getInput("owner");
-     const repo = core.getInput("repo");
-     const octokit = github.getOctokit(token);
+    const token = core.getInput("token");      
+    const owner = core.getInput("owner");
+    const repo = core.getInput("repo");
+    const octokit = github.getOctokit(token);
+    const branch = core.getInput("branch");
+    const issue_number = branch.substring(0,branch.indexOf("-")) ;
     try
     {
        const issues = await octokit.rest.issues.get({
          owner: owner,
          ...github.context.repo,     
-         issue_number: 66        
+         issue_number: issue_number        
        });
         //extract milestone_number from the particular issue and get milestone by milestone_number
         const milestoneNumber = issues.data.milestone.number;       
