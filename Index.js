@@ -51,7 +51,7 @@ async function getMilestone(){
         let jsonString = JSON.stringify(milestone.data);
         let jsonObj = JSON.parse(jsonString);
         let openIssues = jsonObj.open_issues;
-        core.setOutput("openissues", (milestone.open_issues);
+        core.setOutput("openissues", milestone.data.open_issues);
         
     }
     catch(error)
