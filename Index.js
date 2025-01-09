@@ -80,7 +80,7 @@ async function closeMilestone(octokit, owner, repo, milestoneNumber){
         milestone_number: milestoneNumber
     });    
 }
-//getMilestoneAndClose();
+
 /*
 async function getIssuesFromPR() {
   const token = core.getInput("token");
