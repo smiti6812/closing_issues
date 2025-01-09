@@ -41,16 +41,20 @@ async function getMilestone(){
          issue_number: 66        
        });
         const milestoneNumber = issues.data.milestone.number;
+        /*
         const milestone = await octokit.rest.issues.getMilestone({
           owner: owner,
           repo: repo, 
           milestone_number: 2
-        });        
+        }); 
+        */     
         core.setOutput("milestone", milestoneNumber);
+        /*
         let jsonString = JSON.stringify(milestone.data);
         let jsonObj = JSON.parse(jsonString);
         let openIssues = jsonObj.open_issues;
         core.setOutput("openissues", openIssues);
+        */
     }
     catch(error)
     {
