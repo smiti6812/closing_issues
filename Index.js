@@ -59,7 +59,7 @@ async function getMilestoneAndClose(milestoneNumber){
         //Check if the milestone has open issues. If not then milestone can be closed.
         let openIssues = milestone.data.open_issues;
         if (openIssues === 0){
-            await closeMilestone(octokit, owner, repo, milestoneNumber);
+            closeMilestone(octokit, owner, repo, milestoneNumber);
         }        
     }
     catch(error)
