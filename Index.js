@@ -11,24 +11,28 @@ async function run() {
       const assignees = core.getInput("assignees");
       const owner = core.getInput("owner");
       const repo = core.getInput("repo");
-  
+      let branch = core.getInput("branch");
+      branch = branch.replace("refs/heads/","")
+      const issue_number = branch.substring(0,branch.indexOf("-"));  
       const octokit = github.getOctokit(token);
     
-      const issues = await octokit.rest.issues.get({
+      const response = await octokit.rest.issues.update({
         owner: owner,
-        ...github.context.repo,     
-        issue_number: 66        
-      });
-        
-      core.setOutput("issue", issues.data);
-      core.setOutput("openissues", JSON.stringify(issues.open_issues))
-    } catch (error) {
+        repo: repo,
+        state: 'closed',
+        issue_number: issue_number
+      });  
+     core.setOutput("issuenumber", 'Issue number #' + issue_number +' has been closed now!');
+     getMilestoneAndClose(octokit, repo, owner, issue_number);      
+    } 
+    catch (error) {
       core.setFailed(error.message);
     }
   }  
-  //run();
+  run();
 
-async function getMilestoneAndClose(){
+async function getMilestoneAndClose(octokit, repo, owner, issue_number){
+    /*
     const token = core.getInput("token");      
     const owner = core.getInput("owner");
     const repo = core.getInput("repo");
@@ -38,12 +42,12 @@ async function getMilestoneAndClose(){
     const issue_number = branch.substring(0,branch.indexOf("-"));
     core.setOutput("issuenumber", issue_number);
     core.setOutput("branch", branch);
-    
+    */
     try
     {
        const issues = await octokit.rest.issues.get({
          owner: owner,
-         ...github.context.repo,     
+         repor: repo,     
          issue_number: issue_number        
        });
         //extract milestone_number from the particular issue and get milestone by milestone_number
@@ -79,7 +83,7 @@ async function closeMilestone(octokit, owner, repo, milestoneNumber){
         milestone_number: milestoneNumber
     });    
 }
-getMilestoneAndClose();
+//getMilestoneAndClose();
 /*
 async function getIssuesFromPR() {
   const token = core.getInput("token");
