@@ -52,7 +52,7 @@ async function getMilestoneAndClose(){
         //Check if the particular milestone have open issues. If not then milestone can be closed.
         let openIssues = milestone.data.open_issues;
         if (openIssues === 0){
-            updateMilestone(milestoneNumber);
+            updateMilestone(octokit, owner, milestoneNumber);
         }        
     }
     catch(error)
@@ -61,7 +61,7 @@ async function getMilestoneAndClose(){
     }
 }
 
-async function updateMilestone(milestoneNumber){
+async function updateMilestone(octokit, owner, milestoneNumber){
     const updateMilestone = await octokit.rest.issues.updateMilestone({
               owner: owner,
               ...github.context.repo,
