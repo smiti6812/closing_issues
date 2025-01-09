@@ -52,14 +52,13 @@ async function getMilestoneAndClose(){
         let openIssues = returnOpenIssues(octokit, owner, repo, milestoneNumber);
         if (openIssues === 0){
             closeMilestone(octokit, owner, repo, milestoneNumber);
-        }
-        */
+        }        
     }
     catch(error)
     {
         core.setFailed(error.message);
     }
-    
+    */
 }
 
 async function returnOpenIssues(octokit, owner, repo, milestoneNumber){
