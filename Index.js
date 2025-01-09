@@ -18,7 +18,7 @@ async function closeIssueAndMilestone() {
 
       const issues = await octokit.rest.issues.get({
          owner: owner,
-         repor: repo,     
+         ..github.context.repo,      
          issue_number: issue_number        
        });
      let milestoneNumber = issues.data.milestone.number;
