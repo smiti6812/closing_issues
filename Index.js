@@ -41,18 +41,11 @@ async function getMilestoneAndClose(){
          issue_number: 66        
        });
         //extract milestone_number from the particular issue and get milestone by milestone_number
-        const milestoneNumber = issues.data.milestone.number;        
-        const milestone = await octokit.rest.issues.getMilestone({
-          owner: owner,
-          ...github.context.repo,
-          milestone_number: milestoneNumber
-        });            
-        core.setOutput("milestone", milestoneNumber);     
-        core.setOutput("openissues", milestone.data.open_issues);
-        //Check if the particular milestone have open issues. If not then milestone can be closed.
-        let openIssues = milestone.data.open_issues;
+        const milestoneNumber = issues.data.milestone.number;       
+        //Check if the milestone has open issues. If not then milestone can be closed.
+        let openIssues = returnOpenIssues(octokit, owner, repo, milestoneNumber);
         if (openIssues === 0){
-            updateMilestone(octokit, owner, milestoneNumber);
+            closeMilestone(octokit, owner, repo, milestoneNumber);
         }        
     }
     catch(error)
@@ -61,13 +54,24 @@ async function getMilestoneAndClose(){
     }
 }
 
-async function updateMilestone(octokit, owner, milestoneNumber){
-    const updateMilestone = await octokit.rest.issues.updateMilestone({
-              owner: owner,
-              ...github.context.repo,
-              state: 'closed',
-              milestone_number: milestoneNumber
+async function returnOpenIssues(octokit, owner, repo, milestoneNumber){
+    const milestone = await octokit.rest.issues.getMilestone({
+        owner: owner,
+        ...github.context.repo,
+        milestone_number: milestoneNumber
     });
+    core.setOutput("milestone", milestoneNumber);
+    core.setOutput("openissues", milestone.data.open_issues);
+    return milestone.data.open_issues;
+}
+
+async function closeMilestone(octokit, owner, repo, milestoneNumber){
+    const updateMilestone = await octokit.rest.issues.updateMilestone({
+        owner: owner,
+        ...github.context.repo,
+        state: 'closed',
+        milestone_number: milestoneNumber
+    });    
 }
 getMilestoneAndClose();
 /*
