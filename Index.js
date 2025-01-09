@@ -48,7 +48,7 @@ async function getMilestone(){
         core.setFailed(error.message);
     }
 }
-//getMilestone();
+getMilestone();
 /*
 async function getIssuesFromPR() {
   const token = core.getInput("token");
