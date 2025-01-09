@@ -65,7 +65,7 @@ async function updateMilestone(milestoneNumber){
     const updateMilestone = await octokit.rest.issues.updateMilestone({
               owner: owner,
               ...github.context.repo,
-              state, 'closed',
+              state: 'closed',
               milestone_number: milestoneNumber
     });
 }
