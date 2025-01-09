@@ -26,7 +26,7 @@ async function run() {
       core.setFailed(error.message);
     }
   }  
-  run();
+  //run();
 
 async function getMilestone(){
      const token = core.getInput("token");      
@@ -40,7 +40,7 @@ async function getMilestone(){
           ...github.context.repo, 
           milestone_number: 2
         });        
-        //core.setOutput("milestone", JSON.stringify(milestone.data));
+        core.setOutput("issue", milestone.open_issues);
         core.setOutput("openissues", JSON.stringify(milestone.data))
     }
     catch(error)
