@@ -35,12 +35,18 @@ async function getMilestone(){
      const octokit = github.getOctokit(token);
     try
     {
+       const issues = await octokit.rest.issues.get({
+         owner: owner,
+         ...github.context.repo,     
+         issue_number: 66        
+       });
+        const milestoneNumber = issues.data.milestone.number;
         const milestone = await octokit.rest.issues.getMilestone({
           owner: owner,
-          ...github.context.repo, 
+          repo: repo, 
           milestone_number: 2
         });        
-        core.setOutput("milestone", JSON.stringify(milestone.data));
+        core.setOutput("milestone", milestoneNumber);
         let jsonString = JSON.stringify(milestone.data);
         let jsonObj = JSON.parse(jsonString);
         let openIssues = jsonObj.open_issues;
