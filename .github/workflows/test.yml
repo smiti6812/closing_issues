@@ -35,7 +35,7 @@ jobs:
             body: Test issue body
             assignees: smiti6812
             owner: "smiti6812"
-            repo: "${{ github.event.repository.name }}"
+            repo: "closing_issues"
             branch: "${{ github.ref }}"            
         - run: | 
             echo "Branch: ${{ steps.issue.outputs.branch }}"
