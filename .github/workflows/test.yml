@@ -7,9 +7,9 @@ on:
     pull_request:
       types: 
         - closed
-        - opened
+        #- opened
 
-    push:
+    #push:
       #branches:
         #- main      
 
@@ -36,7 +36,7 @@ jobs:
             assignees: smiti6812
             owner: "smiti6812"
             repo: "closing_issues"
-            branch: "${{ github.ref }}"            
+            branch: "${{ github.head_ref }}"            
         - run: | 
             echo "Branch: ${{ steps.issue.outputs.branch }}"
             echo "Issue_Number: ${{ steps.issue.outputs.issuenumber }}"
