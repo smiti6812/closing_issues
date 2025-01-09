@@ -11,16 +11,15 @@ on:
 
     push:
       #branches:
-        #- main
-      
+        #- main      
 
 jobs:
     # unit tests
-    units:
-      runs-on: windows-latest
-      steps:
-        - uses: actions/checkout@v3
-        - run: npm ci
+    #units:
+      #runs-on: windows-latest
+      #steps:
+        #- uses: actions/checkout@v3
+        #- run: npm ci
         #- run: npm test
   
     # test action works running from the graph
@@ -39,9 +38,10 @@ jobs:
             repo: "smiti6812/closing_issues"
             branch: "${{ github.head_ref }}"
             pull_number: ${{ github.event.pull_request.number }}
-        - run: |
-            "Repo owner: ${{github.context.repo.repo}}"
-            echo "${{ steps.issue.outputs.issue }}"
+        - run: |            
+            echo "${{ steps.issue.outputs.milestone }}"
+            echo "Open Issues: ${{ steps.issue.outputs.openissues }}"
+            #echo "${{ steps.issue.outputs.issue }}"
         - name: Show PR number
           run: echo  "${{ github.event.pull_request.number }}"    
 
