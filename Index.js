@@ -22,7 +22,7 @@ async function closeIssueAndMilestone() {
          issue_number: issue_number        
        });
      let milestoneNumber = issues.data.milestone.number;
-     closeIssue(octokit, repo, owner, issue_number);
+     //closeIssue(octokit, repo, owner, issue_number);
      core.setOutput("issuenumber", 'Issue number #' + issue_number +' has been closed now!');    
      getMilestoneAndClose(octokit, repo, owner, milestoneNumber);      
     } 
