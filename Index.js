@@ -41,29 +41,9 @@ async function closeIssue(octokit, repo, owner, issue_number){
       });
 }
 
-async function getMilestoneAndClose(octokit, repo, owner, milestoneNumber){
-    /*
-    const token = core.getInput("token");      
-    const owner = core.getInput("owner");
-    const repo = core.getInput("repo");
-    const octokit = github.getOctokit(token);
-    let branch = core.getInput("branch");
-    branch = branch.replace("refs/heads/","")
-    const issue_number = branch.substring(0,branch.indexOf("-"));
-    core.setOutput("issuenumber", issue_number);
-    core.setOutput("branch", branch);
-    */
+async function getMilestoneAndClose(octokit, repo, owner, milestoneNumber){ 
     try
     {
-        /*
-       const issues = await octokit.rest.issues.get({
-         owner: owner,
-         repor: repo,     
-         issue_number: issue_number        
-       });
-        //extract milestone_number from the particular issue and get milestone by milestone_number
-        const milestoneNumber = issues.data.milestone.number;
-        */
         //Check if the milestone has open issues. If not then milestone can be closed.
         let openIssues = returnOpenIssues(octokit, owner, repo, milestoneNumber);
         if (openIssues === 0){
@@ -79,7 +59,7 @@ async function getMilestoneAndClose(octokit, repo, owner, milestoneNumber){
 async function returnOpenIssues(octokit, owner, repo, milestoneNumber){
     const milestone = await octokit.rest.issues.getMilestone({
         owner: owner,
-        ...github.context.repo,
+        repo: repo,
         milestone_number: milestoneNumber
     });
     core.setOutput("milestone", milestoneNumber);
@@ -90,7 +70,7 @@ async function returnOpenIssues(octokit, owner, repo, milestoneNumber){
 async function closeMilestone(octokit, owner, repo, milestoneNumber){
     const updateMilestone = await octokit.rest.issues.updateMilestone({
         owner: owner,
-        ...github.context.repo,
+        repo: repo,
         state: 'closed',
         milestone_number: milestoneNumber
     });    
