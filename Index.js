@@ -34,8 +34,8 @@ async function getMilestoneAndClose(){
     const repo = core.getInput("repo");
     const octokit = github.getOctokit(token);
     const branch = core.getInput("branch");
-    const issue_number = branch.substring(0,branch.indexOf("-"));
-    core.setOutput("issuenumber", issue_number);
+    //const issue_number = branch.substring(0,branch.indexOf("-"));
+    //core.setOutput("issuenumber", issue_number);
     core.setOutput("branch", branch);
     /*
     try
