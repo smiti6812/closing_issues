@@ -40,7 +40,7 @@ async function getMilestone(){
           ...github.context.repo, 
           milestone_number: 2
         });        
-        core.setOutput("milestone", milestone.open_issues);
+        //core.setOutput("milestone", milestone.open_issues);
         core.setOutput("openissues", JSON.stringify(milestone.data))
     }
     catch(error)
