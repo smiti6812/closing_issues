@@ -3,7 +3,7 @@ const core = require('@actions/core');
 const github = require('@actions/github');
 const { Octokit } = require('@actions/core');
 
-async function run() {
+async function closeIssueAndMilestone() {
     try {
       const token = core.getInput("token");
       const title = core.getInput("title");
@@ -11,37 +11,59 @@ async function run() {
       const assignees = core.getInput("assignees");
       const owner = core.getInput("owner");
       const repo = core.getInput("repo");
-  
+      let branch = core.getInput("branch");
+      branch = branch.replace("refs/heads/","")
+      const issue_number = branch.substring(0,branch.indexOf("-"));  
       const octokit = github.getOctokit(token);
-    
+
       const issues = await octokit.rest.issues.get({
-        owner: owner,
-        ...github.context.repo,     
-        issue_number: 66        
-      });
-        
-      core.setOutput("issue", issues.data);
-      core.setOutput("openissues", JSON.stringify(issues.open_issues))
-    } catch (error) {
+         owner: owner,
+         repor: repo,     
+         issue_number: issue_number        
+       });
+     let milestoneNumber = issues.data.milestone.number;
+     closeIssue(octokit, repo, owner, issue_number);
+     core.setOutput("issuenumber", 'Issue number #' + issue_number +' has been closed now!');    
+     getMilestoneAndClose(octokit, repo, owner, milestoneNumber);      
+    } 
+    catch (error) {
       core.setFailed(error.message);
     }
   }  
-  //run();
+  closeIssueAndMilestone();
 
-async function getMilestoneAndClose(){
-     const token = core.getInput("token");      
-     const owner = core.getInput("owner");
-     const repo = core.getInput("repo");
-     const octokit = github.getOctokit(token);
+async function closeIssue(octokit, repo, owner, issue_number){
+     const response = await octokit.rest.issues.update({
+        owner: owner,
+        repo: repo,
+        state: 'closed',
+        issue_number: issue_number
+      });
+}
+
+async function getMilestoneAndClose(octokit, repo, owner, milestoneNumber){
+    /*
+    const token = core.getInput("token");      
+    const owner = core.getInput("owner");
+    const repo = core.getInput("repo");
+    const octokit = github.getOctokit(token);
+    let branch = core.getInput("branch");
+    branch = branch.replace("refs/heads/","")
+    const issue_number = branch.substring(0,branch.indexOf("-"));
+    core.setOutput("issuenumber", issue_number);
+    core.setOutput("branch", branch);
+    */
     try
     {
+        /*
        const issues = await octokit.rest.issues.get({
          owner: owner,
-         ...github.context.repo,     
-         issue_number: 66        
+         repor: repo,     
+         issue_number: issue_number        
        });
         //extract milestone_number from the particular issue and get milestone by milestone_number
-        const milestoneNumber = issues.data.milestone.number;       
+        const milestoneNumber = issues.data.milestone.number;
+        */
         //Check if the milestone has open issues. If not then milestone can be closed.
         let openIssues = returnOpenIssues(octokit, owner, repo, milestoneNumber);
         if (openIssues === 0){
@@ -51,7 +73,7 @@ async function getMilestoneAndClose(){
     catch(error)
     {
         core.setFailed(error.message);
-    }
+    }    
 }
 
 async function returnOpenIssues(octokit, owner, repo, milestoneNumber){
@@ -73,7 +95,7 @@ async function closeMilestone(octokit, owner, repo, milestoneNumber){
         milestone_number: milestoneNumber
     });    
 }
-getMilestoneAndClose();
+//getMilestoneAndClose();
 /*
 async function getIssuesFromPR() {
   const token = core.getInput("token");

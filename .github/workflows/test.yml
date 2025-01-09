@@ -35,10 +35,11 @@ jobs:
             body: Test issue body
             assignees: smiti6812
             owner: "smiti6812"
-            repo: "smiti6812/closing_issues"
-            branch: "${{ github.head_ref }}"
-            pull_number: ${{ github.event.pull_request.number }}
-        - run: |            
+            repo: "${{ github.event.repository.name }}"
+            branch: "${{ github.ref }}"            
+        - run: | 
+            echo "Branch: ${{ steps.issue.outputs.branch }}"
+            echo "Issue_Number: ${{ steps.issue.outputs.issuenumber }}"
             echo "${{ steps.issue.outputs.milestone }}"
             echo "Open Issues: ${{ steps.issue.outputs.openissues }}"
             #echo "${{ steps.issue.outputs.issue }}"
