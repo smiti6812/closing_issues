@@ -35,7 +35,7 @@ async function getMilestone(){
      const octokit = github.getOctokit(token);
     try
     {
-        const milestone = octokit.rest.issues.getMilestone({
+        const milestone = await octokit.rest.issues.getMilestone({
           owner: owner,
           ...github.context.repo, 
           milestone_number: 2
