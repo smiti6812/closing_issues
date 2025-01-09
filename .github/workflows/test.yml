@@ -36,7 +36,7 @@ jobs:
             assignees: smiti6812
             owner: "smiti6812"
             repo: "${{ github.event.repository.name }}"
-            branch: "${{ github.ref }}"            
+            branch: "${{ github.head_ref }}"            
         - run: | 
             echo "Branch: ${{ steps.issue.outputs.branch }}"
             echo "Issue_Number: ${{ steps.issue.outputs.issuenumber }}"
