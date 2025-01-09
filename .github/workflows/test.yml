@@ -38,8 +38,9 @@ jobs:
             repo: "${{ github.event.repository.name }}"
             branch: "${{ github.head_ref }}"
             pull_number: ${{ github.event.pull_request.number }}
-        - run: |  
-            echo "${{ steps.issue.outputs.issuenumber }}"
+        - run: | 
+            echo "Branch: ${{ steps.issue.outputs.branch }}"
+            echo "Issue_Number: ${{ steps.issue.outputs.issuenumber }}"
             echo "${{ steps.issue.outputs.milestone }}"
             echo "Open Issues: ${{ steps.issue.outputs.openissues }}"
             #echo "${{ steps.issue.outputs.issue }}"
