@@ -36,6 +36,7 @@ async function getMilestoneAndClose(){
     const branch = core.getInput("branch");
     const issue_number = branch.substring(0,branch.indexOf("-"));
     core.setOutput("issuenumber", issue_number);
+    core.setOutput("branch", branch);
     /*
     try
     {
