@@ -39,7 +39,7 @@ jobs:
             branch: "${{ github.head_ref }}"
             pull_number: ${{ github.event.pull_request.number }}
         - run: |            
-            #echo "${{ steps.issue.outputs.milestone }}"
+            echo "${{ steps.issue.outputs.milestone }}"
             echo "Open Issues: ${{ steps.issue.outputs.openissues }}"
             #echo "${{ steps.issue.outputs.issue }}"
         - name: Show PR number
