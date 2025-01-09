@@ -36,6 +36,7 @@ async function getMilestoneAndClose(){
     const branch = core.getInput("branch");
     const issue_number = branch.substring(0,branch.indexOf("-"));
     core.setOutput("issuenumber", issue_number);
+    /*
     try
     {
        const issues = await octokit.rest.issues.get({
@@ -55,6 +56,7 @@ async function getMilestoneAndClose(){
     {
         core.setFailed(error.message);
     }
+    */
 }
 
 async function returnOpenIssues(octokit, owner, repo, milestoneNumber){
